@@ -1,7 +1,8 @@
 name: Check Generated Files Up-to-date
 
 on:
-  - pull_request
+  pull_request_target:
+    types: [labeled, opened, synchronize, reopened]
 
 jobs:
   check-go-generate-up-to-date:
