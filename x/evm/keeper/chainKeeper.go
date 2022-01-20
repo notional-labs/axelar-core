@@ -320,8 +320,8 @@ func (k chainKeeper) GetGatewayByteCode(ctx sdk.Context) ([]byte, bool) {
 	return b, true
 }
 
-func (k chainKeeper) CreateERC20Token(ctx sdk.Context, asset string, details types.TokenDetails, minDeposit sdk.Int, address types.Address) (types.ERC20Token, error) {
-	metadata, err := k.initTokenMetadata(ctx, asset, details, minDeposit, address)
+func (k chainKeeper) CreateERC20Token(ctx sdk.Context, asset string, details types.TokenDetails, address types.Address) (types.ERC20Token, error) {
+	metadata, err := k.initTokenMetadata(ctx, asset, details, address)
 	if err != nil {
 		return types.NilToken, err
 	}
@@ -801,7 +801,7 @@ func (k chainKeeper) getTokensMetadata(ctx sdk.Context) []types.ERC20TokenMetada
 	return tokens
 }
 
-func (k chainKeeper) initTokenMetadata(ctx sdk.Context, asset string, details types.TokenDetails, minAmount sdk.Int, address types.Address) (types.ERC20TokenMetadata, error) {
+func (k chainKeeper) initTokenMetadata(ctx sdk.Context, asset string, details types.TokenDetails, address types.Address) (types.ERC20TokenMetadata, error) {
 	if err := details.Validate(); err != nil {
 		return types.ERC20TokenMetadata{}, err
 	}
@@ -823,7 +823,6 @@ func (k chainKeeper) initTokenMetadata(ctx sdk.Context, asset string, details ty
 			Details:      details,
 			TokenAddress: address,
 			ChainID:      sdk.NewIntFromBigInt(chainID),
-			MinAmount:    minAmount,
 			Status:       types.Initialized,
 			IsExternal:   true,
 		}
@@ -853,7 +852,6 @@ func (k chainKeeper) initTokenMetadata(ctx sdk.Context, asset string, details ty
 		Details:      details,
 		TokenAddress: types.Address(tokenAddr),
 		ChainID:      sdk.NewIntFromBigInt(chainID),
-		MinAmount:    minAmount,
 		Status:       types.Initialized,
 		IsExternal:   false,
 	}
