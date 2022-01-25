@@ -472,7 +472,6 @@ Params represent the genesis parameters for the module
 | ----- | ---- | ----- | ----------- |
 | `name` | [string](#string) |  |  |
 | `ibc_path` | [string](#string) |  |  |
-| `assets` | [string](#string) | repeated |  |
 | `addr_prefix` | [string](#string) |  |  |
 
 
@@ -856,7 +855,6 @@ Chain represents the properties of a registered blockchain
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `name` | [string](#string) |  |  |
-| `native_asset` | [string](#string) |  |  |
 | `supports_foreign_assets` | [bool](#bool) |  |  |
 | `key_type` | [tss.exported.v1beta1.KeyType](#tss.exported.v1beta1.KeyType) |  |  |
 | `module` | [string](#string) |  |  |
@@ -957,7 +955,7 @@ to nexus
 | `sender` | [bytes](#bytes) |  |  |
 | `chain` | [nexus.exported.v1beta1.Chain](#nexus.exported.v1beta1.Chain) |  |  |
 | `addr_prefix` | [string](#string) |  |  |
-| `min_amount` | [bytes](#bytes) |  |  |
+| `native_assets` | [nexus.exported.v1beta1.Asset](#nexus.exported.v1beta1.Asset) | repeated |  |
 
 
 
@@ -1074,6 +1072,7 @@ based chain
 | `sender` | [bytes](#bytes) |  |  |
 | `chain` | [string](#string) |  |  |
 | `asset` | [nexus.exported.v1beta1.Asset](#nexus.exported.v1beta1.Asset) |  |  |
+| `is_native_asset` | [bool](#bool) |  |  |
 
 
 
@@ -2782,7 +2781,6 @@ deposit address
 | ----- | ---- | ----- | ----------- |
 | `sender` | [bytes](#bytes) |  |  |
 | `name` | [string](#string) |  |  |
-| `native_asset` | [string](#string) |  |  |
 | `key_type` | [tss.exported.v1beta1.KeyType](#tss.exported.v1beta1.KeyType) |  |  |
 | `params` | [bytes](#bytes) |  |  |
 
@@ -3428,6 +3426,7 @@ ChainState represents the state of a registered blockchain
 | `maintainers` | [bytes](#bytes) | repeated |  |
 | `activated` | [bool](#bool) |  |  |
 | `assets` | [nexus.exported.v1beta1.Asset](#nexus.exported.v1beta1.Asset) | repeated |  |
+| `native_assets` | [string](#string) | repeated |  |
 
 
 
