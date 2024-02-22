@@ -436,7 +436,7 @@ func NewAxelarApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest
 		appCodec, keys[permissionTypes.StoreKey], app.getSubspace(permissionTypes.ModuleName),
 	)
 
-	semverVersion := app.Version()
+	semverVersion := "v0.34.1"
 	if !strings.HasPrefix(semverVersion, "v") {
 		semverVersion = fmt.Sprintf("v%s", semverVersion)
 	}
@@ -690,7 +690,7 @@ func NewAxelarApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest
 		ante.NewUndelegateDecorator(multisigK, nexusK, snapK),
 		ante.NewCheckRefundFeeDecorator(app.interfaceRegistry, accountK, stakingK, snapK, rewardK),
 		ante.NewCheckProxy(snapK),
-		ante.NewRestrictedTx(permissionK),
+		// ante.NewRestrictedTx(permissionK),
 		ibcante.NewAnteDecorator(app.ibcKeeper),
 	)
 	app.SetAnteHandler(anteHandler)

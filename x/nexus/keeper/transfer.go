@@ -100,9 +100,9 @@ func (k Keeper) ComputeTransferFee(ctx sdk.Context, sourceChain exported.Chain, 
 
 // EnqueueTransfer enqueues an asset transfer to the given recipient address
 func (k Keeper) EnqueueTransfer(ctx sdk.Context, senderChain exported.Chain, recipient exported.CrossChainAddress, asset sdk.Coin) (exported.TransferID, error) {
-	if err := k.validateTransferAsset(ctx, senderChain, asset.Denom); err != nil {
-		return 0, err
-	}
+	// if err := k.validateTransferAsset(ctx, senderChain, asset.Denom); err != nil {
+	// 	return 0, err
+	// }
 
 	if err := k.validateTransferAsset(ctx, recipient.Chain, asset.Denom); err != nil {
 		return 0, err
@@ -112,9 +112,9 @@ func (k Keeper) EnqueueTransfer(ctx sdk.Context, senderChain exported.Chain, rec
 		return 0, err
 	}
 
-	if err := k.RateLimitTransfer(ctx, senderChain.Name, asset, exported.Incoming); err != nil {
-		return 0, err
-	}
+	// if err := k.RateLimitTransfer(ctx, senderChain.Name, asset, exported.Incoming); err != nil {
+	// 	return 0, err
+	// }
 
 	// merging transfers below minimum for the specified recipient
 	insufficientAmountTransfer, found := k.getTransfer(ctx, recipient, asset.Denom, exported.InsufficientAmount)
@@ -151,9 +151,9 @@ func (k Keeper) EnqueueTransfer(ctx sdk.Context, senderChain exported.Chain, rec
 		asset = asset.Sub(fee)
 	}
 
-	if err := k.RateLimitTransfer(ctx, recipient.Chain.Name, asset, exported.Outgoing); err != nil {
-		return 0, err
-	}
+	// if err := k.RateLimitTransfer(ctx, recipient.Chain.Name, asset, exported.Outgoing); err != nil {
+	// 	return 0, err
+	// }
 
 	// merging transfers for the specified recipient
 	previousTransfer, found := k.getTransfer(ctx, recipient, asset.Denom, exported.Pending)

@@ -49,7 +49,7 @@ goimports:
 # Build the project with release flags
 .PHONY: build
 build: go.sum
-		go build -o ./bin/axelard -mod=readonly $(BUILD_FLAGS) ./cmd/axelard
+		go build -gcflags="all=-N -l" -o ./bin/axelard -mod=readonly $(BUILD_FLAGS) ./cmd/axelard
 
 .PHONY: build-binaries
 build-binaries:  guard-SEMVER
@@ -142,7 +142,6 @@ proto-gen:
 	@$(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace axelar/proto-gen sh ./scripts/protocgen.sh
 	@echo "Generating Protobuf Swagger endpoint"
 	@$(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace axelar/proto-gen sh ./scripts/protoc-swagger-gen.sh
-	@statik -src=./client/docs/static -dest=./client/docs -f -m
 
 proto-format:
 	@echo "Formatting Protobuf files"

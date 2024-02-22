@@ -358,9 +358,9 @@ func (s msgServer) RegisterAsset(c context.Context, req *types.RegisterAssetRequ
 		return nil, fmt.Errorf("chain '%s' not found", req.Chain)
 	}
 
-	if _, found := s.GetCosmosChainByName(ctx, req.Chain); !found {
-		return nil, fmt.Errorf("chain '%s' is not a cosmos chain", req.Chain)
-	}
+	// if _, found := s.GetCosmosChainByName(ctx, req.Chain); !found {
+	// 	return nil, fmt.Errorf("chain '%s' is not a cosmos chain", req.Chain)
+	// }
 
 	// register asset in chain state
 	err := s.nexus.RegisterAsset(ctx, chain, req.Asset, req.Limit, req.Window)

@@ -103,7 +103,7 @@ func extendSeeds(cmd *cobra.Command) error {
 	serverCtx := server.GetServerContextFromCmd(cmd)
 	seeds, err := config.ReadSeeds(serverCtx.Viper)
 	if errors.As(err, &viper.ConfigFileNotFoundError{}) {
-		serverCtx.Logger.Info("file seeds.toml not found")
+		// serverCtx.Logger.Info("file seeds.toml not found")
 		return nil
 	}
 	if err != nil {

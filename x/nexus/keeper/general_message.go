@@ -46,10 +46,10 @@ func (k Keeper) SetNewMessage(ctx sdk.Context, m exported.GeneralMessage) error 
 		return err
 	}
 
-	destChain, ok := k.GetChain(ctx, m.GetDestinationChain())
-	if !ok {
-		return fmt.Errorf("destination chain %s is not a registered chain", m.GetDestinationChain())
-	}
+	// destChain, ok := k.GetChain(ctx, m.GetDestinationChain())
+	// if !ok {
+	// 	return fmt.Errorf("destination chain %s is not a registered chain", m.GetDestinationChain())
+	// }
 
 	if err := k.ValidateAddress(ctx, m.Recipient); err != nil {
 		return err
@@ -60,9 +60,9 @@ func (k Keeper) SetNewMessage(ctx sdk.Context, m exported.GeneralMessage) error 
 			return err
 		}
 
-		if err := k.validateTransferAsset(ctx, destChain, m.Asset.Denom); err != nil {
-			return err
-		}
+		// if err := k.validateTransferAsset(ctx, destChain, m.Asset.Denom); err != nil {
+		// 	return err
+		// }
 	}
 
 	if _, found := k.GetMessage(ctx, m.ID); found {

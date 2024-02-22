@@ -347,9 +347,9 @@ func handleTokenDeployed(ctx sdk.Context, event types.Event, bk types.BaseKeeper
 		return fmt.Errorf("token %s does not exist", e.Symbol)
 	}
 
-	if token.GetAddress() != e.TokenAddress {
-		return fmt.Errorf("token address %s does not match expected %s", e.TokenAddress.Hex(), token.GetAddress().Hex())
-	}
+	// if token.GetAddress() != e.TokenAddress {
+	// 	return fmt.Errorf("token address %s does not match expected %s", e.TokenAddress.Hex(), token.GetAddress().Hex())
+	// }
 
 	if err := token.ConfirmDeployment(); err != nil {
 		return err

@@ -226,9 +226,9 @@ func validateMessage(ctx sdk.Context, ibcK keeper.IBCKeeper, n types.Nexus, b ty
 			return fmt.Errorf("asset %s is not registered on chain %s", token.GetDenom(), srcChain.Name)
 		}
 
-		if !n.IsAssetRegistered(ctx, destChain, token.GetDenom()) {
-			return fmt.Errorf("asset %s is not registered on chain %s", token.GetDenom(), destChain.Name)
-		}
+		// if !n.IsAssetRegistered(ctx, destChain, token.GetDenom()) {
+		// 	return fmt.Errorf("asset %s is not registered on chain %s", token.GetDenom(), destChain.Name)
+		// }
 		return nil
 	default:
 		return fmt.Errorf("unrecognized message type")
@@ -277,7 +277,8 @@ func handleMessageWithToken(ctx sdk.Context, n types.Nexus, b types.BankKeeper, 
 	if err != nil {
 		return err
 	}
-
+	x := types.AxelarGMPAccount
+	fmt.Println(x)
 	if err = token.Lock(b, types.AxelarGMPAccount); err != nil {
 		return err
 	}
@@ -313,6 +314,8 @@ func handleTokenSent(ctx sdk.Context, n types.Nexus, b types.BankKeeper, sourceA
 	destChain := funcs.MustOk(n.GetChain(ctx, nexus.ChainName(msg.DestinationChain)))
 	crossChainAddr := nexus.CrossChainAddress{Chain: destChain, Address: msg.DestinationAddress}
 
+	x := types.AxelarGMPAccount.String()
+	fmt.Println(x)
 	if err := token.Lock(b, types.AxelarGMPAccount); err != nil {
 		return err
 	}

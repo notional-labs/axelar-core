@@ -28,3 +28,8 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MultiSig{},
 	)
 }
+
+var amino = codec.NewLegacyAmino()
+
+// ModuleCdc defines the module codec
+var ModuleCdc = codec.NewAminoCodec(amino)

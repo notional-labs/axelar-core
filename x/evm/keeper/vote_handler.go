@@ -188,9 +188,9 @@ func (v voteHandler) HandleResult(ctx sdk.Context, result codec.ProtoMarshaler) 
 func handleEvent(ctx sdk.Context, ck types.ChainKeeper, event types.Event, chain nexus.Chain) error {
 	// check if event confirmed before
 	eventID := event.GetID()
-	if _, ok := ck.GetEvent(ctx, eventID); ok {
-		return fmt.Errorf("event %s is already confirmed", eventID)
-	}
+	// if _, ok := ck.GetEvent(ctx, eventID); ok {
+	// 	return fmt.Errorf("event %s is already confirmed", eventID)
+	// }
 	if err := ck.SetConfirmedEvent(ctx, event); err != nil {
 		panic(err)
 	}

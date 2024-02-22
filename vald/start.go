@@ -132,10 +132,10 @@ func runVald(cliCtx sdkClient.Context, txf tx.Factory, viper *viper.Viper) error
 	}()
 
 	valdConf := config.DefaultValdConfig()
-	viper.RegisterAlias("broadcast.max_timeout", "rpc.timeout_broadcast_tx_commit")
-	if err := viper.Unmarshal(&valdConf, config.AddDecodeHooks); err != nil {
-		panic(err)
-	}
+	// viper.RegisterAlias("broadcast.max_timeout", "rpc.timeout_broadcast_tx_commit")
+	// if err := viper.Unmarshal(&valdConf, config.AddDecodeHooks); err != nil {
+	// 	panic(err)
+	// }
 
 	valAddr, err := sdk.ValAddressFromBech32(viper.GetString("validator-addr"))
 	if err != nil {

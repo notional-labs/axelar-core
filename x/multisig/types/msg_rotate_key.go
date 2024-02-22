@@ -36,7 +36,23 @@ func (m RotateKeyRequest) ValidateBasic() error {
 	return nil
 }
 
+// Route implements sdk.Msg
+func (m RotateKeyRequest) Route() string {
+	return RouterKey
+}
+
+// Type implements sdk.Msg
+func (m RotateKeyRequest) Type() string {
+	return "RotateKey"
+}
+
 // GetSigners implements the sdk.Msg interface
 func (m RotateKeyRequest) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{m.Sender}
+}
+
+// GetSignBytes implements sdk.Msg
+func (m RotateKeyRequest) GetSignBytes() []byte {
+	bz := ModuleCdc.MustMarshalJSON(&m)
+	return sdk.MustSortJSON(bz)
 }

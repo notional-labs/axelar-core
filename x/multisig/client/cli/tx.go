@@ -3,6 +3,7 @@ package cli
 import (
 	"fmt"
 
+	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -28,6 +29,7 @@ func GetTxCmd() *cobra.Command {
 		getCmdStartKeygen(),
 		getCmdRotateKey(),
 		getCmdKeygen(),
+		// getCmdSubmitPubKey(),
 	)
 
 	return txCmd
@@ -83,6 +85,40 @@ func getCmdKeygen() *cobra.Command {
 		getCmdOptOut(),
 		getCmdOptIn(),
 	)
+
+	return cmd
+}
+
+func getCmdSubmitPubKey() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "submit-pubkey",
+		Short: "Initiate pubkey generation protocol",
+		Args:  cobra.NoArgs,
+	}
+
+	priv1 := "0xe40f2986bf98c69b191679fe1dff95f76a76fd56dd18ad55402331d31da08981"
+	priv, pub := btcec.PrivKeyFromBytes([]byte("still much order wheat buyer awful swear random crack arrow prepare resource chair strike desk erupt fiction peasant whisper foster force fee analyst express"))
+	fmt.Printf("public: %x\nprivate: %x\n", pub.SerializeCompressed(), priv.Serialize())
+	keyID := cmd.Flags().String("id", "", "unique ID for new key (required)")
+	if err := cmd.MarkFlagRequired("id"); err != nil {
+		panic("id flag not set")
+	}
+
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		cliCtx, err := client.GetClientTxContext(cmd)
+		if err != nil {
+			return err
+		}
+
+		msg := types.NewSubmitPubKeyRequest(cliCtx.FromAddress, exported.KeyID(*keyID), pub.SerializeCompressed(), types.Signature(priv1))
+		if err := msg.ValidateBasic(); err != nil {
+			return err
+		}
+
+		return tx.GenerateOrBroadcastTxCLI(cliCtx, cmd.Flags(), msg)
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
 
 	return cmd
 }

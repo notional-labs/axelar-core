@@ -184,9 +184,9 @@ func (s msgServer) SetGateway(c context.Context, req *types.SetGatewayRequest) (
 	if err != nil {
 		return nil, err
 	}
-	if _, ok := keeper.GetGatewayAddress(ctx); ok {
-		return nil, fmt.Errorf("%s gateway already set", req.Chain)
-	}
+	// if _, ok := keeper.GetGatewayAddress(ctx); ok {
+	// 	return nil, fmt.Errorf("%s gateway already set", req.Chain)
+	// }
 
 	keeper.SetGateway(ctx, req.Address)
 

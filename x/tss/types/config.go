@@ -13,7 +13,7 @@ type TssConfig struct {
 func DefaultConfig() TssConfig {
 	return TssConfig{
 		Host:        "localhost",
-		Port:        "50051",
+		Port:        "9090",
 		DialTimeout: 15 * time.Second,
 	}
 }
