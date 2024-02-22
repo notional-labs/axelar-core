@@ -15,7 +15,7 @@ type EVMConfig struct {
 func DefaultConfig() []EVMConfig {
 	return []EVMConfig{{
 		Name:       "Ethereum",
-		RPCAddr:    "http://127.0.0.1:7545",
+		RPCAddr:    "http://127.0.0.1:7545/0",
 		WithBridge: true,
 	}}
 }
