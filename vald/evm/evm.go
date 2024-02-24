@@ -583,26 +583,26 @@ func DecodeERC20TokenDeploymentEvent(log *geth.Log) (types.EventTokenDeployed, e
 	// if len(log.Topics) != 1 || log.Topics[0] != ERC20TokenDeploymentSig {
 	// 	return types.EventTokenDeployed{}, fmt.Errorf("event is not for an ERC20 token deployment")
 	// }
-	//
-	// // Decode the data field
-	// stringType, err := abi.NewType("string", "string", nil)
-	// if err != nil {
-	// 	return types.EventTokenDeployed{}, err
-	// }
-	// addressType, err := abi.NewType("address", "address", nil)
-	// if err != nil {
-	// 	return types.EventTokenDeployed{}, err
-	// }
-	//
-	// arguments := abi.Arguments{{Type: stringType}, {Type: addressType}}
-	// params, err := types.StrictDecode(arguments, log.Data)
-	// if err != nil {
-	// 	return types.EventTokenDeployed{}, err
-	// }
+
+	// Decode the data field
+	stringType, err := abi.NewType("string", "string", nil)
+	if err != nil {
+		return types.EventTokenDeployed{}, err
+	}
+	addressType, err := abi.NewType("address", "address", nil)
+	if err != nil {
+		return types.EventTokenDeployed{}, err
+	}
+
+	arguments := abi.Arguments{{Type: stringType}, {Type: addressType}}
+	params, err := types.StrictDecode(arguments, log.Data)
+	if err != nil {
+		return types.EventTokenDeployed{}, err
+	}
 
 	return types.EventTokenDeployed{
-		Symbol:       "USDC",
-		TokenAddress: types.Address(common.BytesToAddress([]byte("0x9fe67c68320869f42552772f8985eae7bba3d4dea72d53a3a845fee3da411c71"))),
+		Symbol:       params[0].(string),
+		TokenAddress: types.Address(params[1].(common.Address)),
 	}, nil
 }
 
